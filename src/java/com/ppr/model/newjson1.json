@@ -1,0 +1,48 @@
+{
+    "map": {
+        "list": [{
+                "fstarttime": "2020-08-01"
+            }, {
+                "fstarttime": "2020-08-02"
+            }, {
+                "fstarttime": "2020-08-03"
+            }, {
+                "fstarttime": "2020-08-04"
+            }, {
+                "fstarttime": "2020-08-05"
+            }, {
+                "fstarttime": "2020-08-06"
+            }, {
+                "fstarttime": "2020-08-07"
+            }, {
+                "fstarttime": "2020-08-08"
+            }, {
+                "fstarttime": "2020-08-09"
+            }],
+        "list1": [{
+                "fid": "3F1BEF45-7EDA-45D0-86B8-62BAC693F1D3",
+                "ftaskid": "3F3586EC-F8FD-4764-870D-9584EDE3BFA5",
+                "ftaskname": "语法-时态-30",
+                "ftasktitle": "语法-时态-30",
+                "fstarttime": "2020-08-08 00:00",
+                "fpagename": "",
+                "ftype": "1",
+                "fstatus": "0",
+                "fplantime": "30",
+                "fnum": "30",
+                "fendtime": "2020-08-08 23:00",
+                "fsubject": "4002",
+                "fprojectname": "语法真题组卷",
+                "ftaskurl": "http://",
+                "frate": "",
+                "ffacestatus": "0",
+                "fmockid": "",
+                "fsubtype": "1",
+                "fmarkflag": "false",
+                "fmocksubmittype": ""
+            }],
+        "result": 1,
+        "msg": "成功"
+    }
+}
+

@@ -1,0 +1,68 @@
+{
+    "map": {
+        "list": [{
+                "fstarttime": "2020-08-01"
+            }, {
+                "fstarttime": "2020-08-02"
+            }, {
+                "fstarttime": "2020-08-03"
+            }, {
+                "fstarttime": "2020-08-04"
+            }, {
+                "fstarttime": "2020-08-05"
+            }, {
+                "fstarttime": "2020-08-06"
+            }, {
+                "fstarttime": "2020-08-07"
+            }, {
+                "fstarttime": "2020-08-08"
+            }, {
+                "fstarttime": "2020-08-09"
+            }],
+        "list1": [{
+                "fid": "079FFD55-30E3-438D-BF5F-CEC494DFD7EB",
+                "ftaskid": "3B5F8803-185B-4897-BC49-EB9F17372D8C",
+                "ftaskname": "201705北美-S4",
+                "ftasktitle": "201705北美-S4",
+                "fstarttime": "2020-08-05 00:00",
+                "fpagename": "",
+                "ftype": "1",
+                "fstatus": "0",
+                "fplantime": "45",
+                "fnum": "38",
+                "fendtime": "2020-08-05 23:00",
+                "fsubject": "1004",
+                "fprojectname": "数学S4限时",
+                "ftaskurl": "http://",
+                "frate": "",
+                "ffacestatus": "0",
+                "fmockid": "",
+                "fsubtype": "1",
+                "fmarkflag": "false",
+                "fmocksubmittype": ""
+            }, {
+                "fid": "A07ED716-D75E-4D06-89FF-D07EB0C88075",
+                "ftaskid": "6762EA28-F22E-4B5E-A3D8-3E171BE6AD4B",
+                "ftaskname": "201705北美-S3",
+                "ftasktitle": "201705北美-S3",
+                "fstarttime": "2020-08-05 00:00",
+                "fpagename": "",
+                "ftype": "1",
+                "fstatus": "0",
+                "fplantime": "15",
+                "fnum": "20",
+                "fendtime": "2020-08-05 23:00",
+                "fsubject": "1003",
+                "fprojectname": "数学S3限时",
+                "ftaskurl": "http://",
+                "frate": "",
+                "ffacestatus": "0",
+                "fmockid": "",
+                "fsubtype": "1",
+                "fmarkflag": "false",
+                "fmocksubmittype": ""
+            }],
+        "result": 1,
+        "msg": "成功"
+    }
+}
