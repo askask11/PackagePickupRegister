@@ -5,14 +5,18 @@
  */
 package com.ppr.controller;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.setting.Setting;
 import com.ppr.model.Captcha;
 import com.ppr.model.DatabaseConnector;
 import com.ppr.model.GCaptcha;
 import com.ppr.model.TimeConverter;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.logging.Level;
@@ -31,11 +35,10 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Servlet", urlPatterns =
 {
-    "/index", "/RegisterPackage", "/ContactMe","/Captcha"
-})
+    "/index", "/RegisterPackage", "/ContactMe", "/Captcha","/Write","/GetDir"
+}, loadOnStartup = 1)
 public class Servlet extends HttpServlet
 {
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -80,12 +83,31 @@ public class Servlet extends HttpServlet
     {
         String path = request.getServletPath();
 
-        if (path.equals("/index"))
+        switch (path)
         {
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
-        }else if(path.equals("/Captcha"))
-        {
-            processCaptchaGET(request, response);
+            case "/index":
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                break;
+            case "/Captcha":
+                processCaptchaGET(request, response);
+                break;
+            case "/Write":
+                PrintWriter w = response.getWriter();
+                File file = new File("xixi" + RandomUtil.randomNumbers(4) + ".txt");
+                file.createNewFile();
+                FileUtil.writeString("wo ai ni!", file, "UTF-8");
+                w.write("Success!");
+                w.flush();
+                w.close();
+                break;
+            case "/GetDir":
+                PrintWriter w2 = response.getWriter();
+                w2.write(new File("/WEB-INF/.").getCanonicalPath());
+                w2.flush();
+                w2.close();
+                break;
+            default:
+                break;
         }
     }
 
@@ -122,8 +144,38 @@ public class Servlet extends HttpServlet
     public String getServletInfo()
     {
         return "Short description";
-    }// </editor-fold>
+    }
 
+    @Override
+    public void init()
+    {
+        System.out.println("Hi");
+        try
+        {
+            com.mysql.cj.jdbc.Driver driver = new com.mysql.cj.jdbc.Driver();
+//            int i = Integer.parseInt("shabi!");
+        } catch (NumberFormatException | SQLException ex)
+        {
+            Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
+//            File log = new File("./whatever.txt");
+//            if(!log.exists())
+//            {
+//                try
+//                {
+//                    log.createNewFile();
+//                    FileUtil.writeString(ExceptionUtil.stacktraceToString(ex), log, "UTF-8");
+//                } catch (IOException ex1)
+//                {
+//                    Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex1);
+//                }
+//            }
+//            
+//        
+
+        }
+    }
+
+// </editor-fold>
     private void processContactMePOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         String token = request.getParameter("token");
@@ -140,7 +192,7 @@ public class Servlet extends HttpServlet
             {
                 Setting set = new Setting("gcaptcha.setting");//read the token from setting file.
                 GCaptcha gc = GCaptcha.verifyGCaptchaResult(token, set.get("secret"));
-                session.setAttribute("gc",gc/* new GCaptcha(true, captchaCode, token, captchaCode, 0.5)*/);
+                session.setAttribute("gc", gc/* new GCaptcha(true, captchaCode, token, captchaCode, 0.5)*/);
 
                 if (gc.isSuccess())
                 {
@@ -149,7 +201,7 @@ public class Servlet extends HttpServlet
                 {
                     response.getWriter().write("抱歉，身份验证无法通过，请重试");
                 }
-            }else if(captchaCode !=null)
+            } else if (captchaCode != null)
             {
                 request.getRequestDispatcher("/WEB-INF/ContactMe.jsp").forward(request, response);
             }
@@ -163,9 +215,8 @@ public class Servlet extends HttpServlet
         }
 
     }
-    
-    
-     protected void processCaptchaGET(HttpServletRequest request, HttpServletResponse response)
+
+    protected void processCaptchaGET(HttpServletRequest request, HttpServletResponse response)
     {
         HttpSession session = request.getSession();
         //String userPath = request.getServletPath();
@@ -223,14 +274,13 @@ public class Servlet extends HttpServlet
             } catch (Exception ex)
             {
                 ex.printStackTrace();
-                
-                try(PrintWriter pr = response.getWriter())
+
+                try (PrintWriter pr = response.getWriter())
                 {
                     pr.println("We get an error.");
                     ex.printStackTrace(pr);
                 }
-                
-                
+
                 //response.sendRedirect(request.getContextPath() + "/index");
             }
 

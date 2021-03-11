@@ -76,7 +76,7 @@ public class DatabaseConnector implements AutoCloseable
         this.dbConn = null;
         //Find the driver and make connection;
 
-        Class.forName("com.mysql.cj.jdbc.Driver"); //URL for new version jdbc connector.
+        //Class.forName("com.mysql.cj.jdbc.Driver"); //URL for new version jdbc connector.
         Properties properties = new Properties(); //connection system property
         properties.setProperty("user", dbUsername);
         properties.setProperty("password", dbPassword);
