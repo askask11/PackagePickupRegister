@@ -8,6 +8,7 @@ package com.ppr.controller;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.setting.Setting;
+import com.ppr.model.AliOSS;
 import com.ppr.model.Captcha;
 import com.ppr.model.DatabaseConnector;
 import com.ppr.model.GCaptcha;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -40,6 +42,7 @@ import javax.servlet.http.HttpSession;
 public class Servlet extends HttpServlet
 {
 
+    private static com.mysql.cj.jdbc.Driver DB_DRIVER = null;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -149,29 +152,30 @@ public class Servlet extends HttpServlet
     @Override
     public void init()
     {
-        System.out.println("Hi");
         try
         {
-            com.mysql.cj.jdbc.Driver driver = new com.mysql.cj.jdbc.Driver();
-//            int i = Integer.parseInt("shabi!");
+            DB_DRIVER = new com.mysql.cj.jdbc.Driver();
+            DriverManager.registerDriver(DB_DRIVER);
+            AliOSS.log("servletInit"+RandomUtil.randomString(2), ".log", "Tomcat Initalized! ");
         } catch (NumberFormatException | SQLException ex)
         {
             Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
-//            File log = new File("./whatever.txt");
-//            if(!log.exists())
-//            {
-//                try
-//                {
-//                    log.createNewFile();
-//                    FileUtil.writeString(ExceptionUtil.stacktraceToString(ex), log, "UTF-8");
-//                } catch (IOException ex1)
-//                {
-//                    Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex1);
-//                }
-//            }
-//            
-//        
-
+            AliOSS.logError(ex);
+            
+        }
+    }
+    
+    @Override
+    public void destroy()
+    {
+        try
+        {
+            DriverManager.deregisterDriver(DB_DRIVER);
+            AliOSS.log("servletDestroy"+RandomUtil.randomString(2), ".log", "Tomcat destroyed! ");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
+            AliOSS.logError(ex);
         }
     }
 

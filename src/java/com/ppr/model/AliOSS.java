@@ -146,6 +146,21 @@ public class AliOSS
 
     }
 
+    public static void log(String name,String extension, String content)
+    {
+        try
+        {
+            File up;
+            up = File.createTempFile(name, extension);
+            up = FileUtil.writeUtf8String(content, up);
+            up.deleteOnExit();
+            uploadFileAliyun(up, creds.get("endpoint"), "logs/tomcat/PackagePickupRegister/", "text/plain");
+        } catch (IOException ex)
+        {
+            Logger.getLogger(AliOSS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static void main(String[] args) throws UnsupportedEncodingException
     {
         try
